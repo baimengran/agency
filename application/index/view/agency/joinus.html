@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html class="pixel-ratio-1">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>我要代理</title>
+		<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+		<link rel="shortcut icon" href="/favicon.ico">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no">
+		<link rel="stylesheet" href="__IN_CSS__/sm.min.css">
+		<link rel="stylesheet" href="__IN_CSS__/sm-extend.min.css">
+		<link rel="stylesheet" href="__IN_CSS__/app.css?349632766">
+		<script src="__IN_JS__/jquery.min.js"></script>
+		<script src="__IN_JS__/vue.min.js"></script>
+		<script src="__IN_JS__/vant.js"></script>
+		<script src="__IN_JS__/Area.js"></script>
+		<script src="__IN_JS__/layer/layer.js"></script>
+		<style id="__WXWORK_INNER_SCROLLBAR_CSS">::-webkit-scrollbar { width: 12px !important; height: 12px !important; }::-webkit-scrollbar-track:vertical {  }::-webkit-scrollbar-thumb:vertical { background-color: rgba(136, 141, 152, 0.5) !important; border-radius: 10px !important; background-clip: content-box !important; border:2px solid transparent !important; } ::-webkit-scrollbar-track:horizontal {  }::-webkit-scrollbar-thumb:horizontal { background-color: rgba(136, 141, 152, 0.5) !important; border-radius: 10px !important; background-clip: content-box !important; border:2px solid transparent !important; } ::-webkit-resizer { display: none !important; }</style>
+		<style>
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			body{
+				background-color: #f0f0f0;
+				min-height: 100vh;
+			}
+			.webbox{
+				padding: 30px 6px;
+				-webkit-box-sizing: border-box;
+				-moz-box-sizing: border-box;
+				box-sizing: border-box;
+			}
+			.mb10{
+				margin-bottom: 10px;
+			}
+			.w100{
+				width: 100%;
+			}
+			.f_box{
+				margin-bottom: 16px;
+			}
+			.f_name{
+				font-size: 14px;
+				color: #141414;
+				font-weight: bold;
+				margin-bottom: 4px;
+			}
+			.ints{
+				width: 100%;
+				height: 36px;
+				-webkit-box-sizing: border-box;
+				-moz-box-sizing: border-box;
+				box-sizing: border-box;
+				border: 1px solid #c2c2c2;
+				border-top: 3px solid #c2c2c2;
+				border-radius: 6px;
+				background-color: #efefef;
+				padding: 0 14px;
+			}
+			.seles{
+				width: 100%;
+				height: 36px;
+				-webkit-box-sizing: border-box;
+				-moz-box-sizing: border-box;
+				box-sizing: border-box;
+				border: 1px solid #c2c2c2;
+				border-radius: 6px;
+				background-color: #efefef;
+				padding: 0 14px;
+			}
+			.bgfff{
+				background-color: #fff;
+			}
+			.cz_box{
+
+				justify-content: space-between;
+				padding: 0 6px;
+			}
+			.back_btn{
+				width: 55px;
+				height: 34px;
+				background-color: #5ac2dd;
+				color: #fff;
+				font-size: 15px;
+				border-radius: 4px;
+			}
+			.sub_btn{
+				width: 100px;
+				height: 34px;
+				background-color: #60b560;
+				color: #fff;
+				font-size: 15px;
+				border-radius: 4px;
+			}
+			.agency_select{
+				background-color: #ffffff;
+				padding-top:10px;
+			}
+			.w100.f_box{
+				width:94%;
+				margin:0 auto;
+			}
+			.layui-layer-btn0,.layui-layer-btn1{
+				width:230px!important;
+				margin-bottom:5px!important;
+			}
+
+		</style>
+	</head>
+	<body>
+		<div class="page-group">
+			<div class="page page-current" id="joinus">
+				<header class="bar bar-nav">
+					<a class="button button-link button-nav pull-left back" onclick="check(0)"> <span class="icon icon-left"></span> 返回 </a>
+					<h1 class="title">我要代理</h1>
+				</header>
+				<div class="content native-scroll" style="display: block;" id="webbox">
+					<div class="agency_select">
+						<div class="w100 f_box">
+							<div class="f_name">代理级别</div>
+							<select style="font-size: 12px" class="seles" name="ag" value="" id="ag" @change='getAgency()'>
+								<option style="font-size: 12px" value="0">请选择代理级别</option>
+								<option style="font-size: 12px"  v-for="(item,index) in agencies" :value="item.id">{{item.title}}  </option>
+							</select>
+							<span style="font-size: 10px;margin-left: 5px;color: #777777;">可选择相应代理级别并购买产品自动成为代理,或单独选择代理级别</span>
+						</div>
+						<div class="w100 f_box">
+							<div class="f_name">购买产品</div>
+							<select style="font-size: 12px" class="seles" name="product_id" id="product_id">
+								<option style="font-size: 12px" value="0">请选择订购产品</option>
+								<option style="font-size: 10px" v-for="(item,index) in product" :value="item.id" :data-price="item.agency_price"
+										:data-box="item.agency_box_price" :data-first="item.first_boxful_num"
+										:data-again="item.again_boxful_num" :data-type="item.type">
+                                    {{item.title}}
+                                </option>
+							</select>
+							<div id="product" style="margin-left: 5px;color: #777777;"></div>
+							<span  style="font-size: 10px;margin-left: 5px;color: #777777;"></span>
+						</div>
+					</div>
+
+					<div class="list-block">
+						<ul>
+							<li>
+								<div class="item-content">
+									<div class="item-inner">
+										<div class="item-title label">姓名</div>
+										<div class="item-input">
+											<input type="hidden" name="type" id="type" value="">
+											<input name="real_name" id="real_name" type="text" placeholder="您的真实姓名">
+										</div>
+									</div>
+								</div>
+							</li>
+							<li>
+								<div class="item-content">
+									<div class="item-inner">
+										<div class="item-title label">微信号</div>
+										<div class="item-input">
+											<input name="wechatid" id="wechatid" type="text" placeholder="请填写此微信的微信号">
+										</div>
+									</div>
+								</div>
+							</li>
+							<li>
+								<div class="item-content">
+									<div class="item-inner">
+										<div class="item-title label">联系方式</div>
+										<div class="item-input">
+											<input name="phone" id="phone" type="text" placeholder="请输入联系方式">
+										</div>
+									</div>
+								</div>
+							</li>
+							<li>
+								<div class="item-content">
+									<div class="item-inner">
+										<div class="item-title label">推荐人手机</div>
+										<div class="item-input">
+											<input name="t_phone" id="t_phone" type="text" placeholder="若无推荐人则不填">
+										</div>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+					<div class="content-block">
+						<div class="row">
+							<div class="col-50"><a class="button button-big button-fill button-danger back" @click="check(0)">取消</a></div>
+							<div class="col-50"><a href="javascript:void(0);" class="button button-big button-fill button-success auth-submit" @click="check(1)">提交</a></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script src="__IN_JS__/zepto.js"></script>
+		<!-- <script src="__IN_JS__/sm.js"></script>
+		<script src="__IN_JS__/sm-extend.js"></script>
+		<script src="__IN_JS__/app.js?349632766"></script> -->
+		<script>
+            $(document).ready(function(){
+                $('#product_id').change(function () {
+                    price= $("option:selected", this).attr('data-price');
+                    box= $("option:selected", this).attr('data-box');
+                    first= $("option:selected", this).attr('data-first');
+                    again= $("option:selected", this).attr('data-again');
+                    id= $("option:selected", this).val();
+                    type = $("option:selected",this).attr('data-type');
+                    $('#type').val(type);
+                    char = '';
+                    if(type=='0'){
+                        char='箱';
+					}else{
+                        char='台';
+					}
+                    if(id=='0'){
+                        $('#product').html('');
+					}else {
+                        html = '<p>代理单价：' + price + '元 </p>' +
+                            '<p>代理箱价：' + box + '元 </p>' +
+                            '<p>首次代理最低需订购 ' + first + char+' </p>' +
+                            '<p>再次补货最低需' + again + char+'</p>';
+                        $('#product').empty();
+                        $('#product').html(html);
+                    }
+                    // data-price="item.agency_price" data-box="item.agency_box_price" data-first="item.first_boxful_num" data-again="item.again_boxful_num"
+                });
+            })
+
+
+			function check(num){
+                history.go(-1)
+			}
+            var vm=new Vue({
+                el: '#webbox',
+                data: {
+                    agencies:[],
+					product:[],
+                    details: [],
+                },
+                created: function () {
+                    this.agency();
+                },
+                mounted() {
+                },
+                methods: {
+                    agency(_this=this){
+                        url = "{:url('agency/i_want')}";
+                        field = 'agency';
+                        $.ajax({
+                            type: "post",
+                            url: url,
+                            data: {field:field},
+                            success: function(res) {
+                                if(res.code===1){
+                                    _this.agencies=res.data;
+                                }else{
+                                    layer.msg(res.msg);
+                                }
+                            },
+                            error: function(err) {
+                                layer.msg('提交失败')
+                            }
+                        })
+                    },
+                    getAgency(_this=this){
+                        $('#product_id').val("0");
+                        $('#product').empty();
+                        id = $("#ag").val();//需求主键
+						if(id==='0'){
+						    _this.product=[];
+						    return false;
+						}
+						url = "{:url('agency/i_want')}";
+						field = 'ag';
+						agency_id = id;
+                        $.ajax({
+                            type: "post",
+                            url: url,
+                            data: {field:field,agency_id:id},
+                            success: function(res) {
+                                if(res.code===1){
+                                    _this.product=res.data;
+                                }else{
+                                    layer.msg(res.msg);
+                                }
+                            },
+                            error: function(err) {
+                                layer.msg('提交失败')
+                            }
+                        })
+					},
+                    check(num,_this=this){
+                        if(num===0){
+                            history.go(-1);
+                        }else{
+                            field='save';
+                            url = "{:url('agency/i_want')}";
+                            agency = $("#ag").val();//需求主键
+							product_id = $('#product_id').val();
+							product = _this.product;
+							agencies = _this.agencies;
+							real_name = $('#real_name').val();
+							nickname = $('#nickname').val();
+                            wechatid = $('#wechatid').val();
+                            phone = $('#phone').val();
+                            t_phone =$('#t_phone').val();
+							type = $('#type').val();
+							num = '';
+							price = '';
+							total_price = '';
+							for(let i in agencies){
+							    if(agency==agencies[i].id){
+							        total_price=agencies[i].total_price;
+								}
+							}
+							for (let i in product) {
+							    if(product_id==product[i].id){
+							        num=product[i].num;
+							        price = product[i].price;
+								}
+							}
+                            if(agency=='0'){
+                                layer.msg("请选择代理级别")
+                                return
+                            }
+                            if(real_name==""){
+                                layer.msg("请输入姓名")
+                                return
+                            }
+                            if(wechatid==''){
+                                layer.msg("请输入微信号")
+                                return
+                            }
+                            if(phone==''){
+                                layer.msg("请输入手机号")
+                                return
+                            }
+                            if(!(/^((0\d{2,3}-\d{7,8})|(1[3584]\d{9}))$/.test(phone))){
+                                layer.msg('联系方式填写错误')
+                                return;
+                            }
+                            if(t_phone!=''){
+                                if(!(/^((0\d{2,3}-\d{7,8})|(1[3584]\d{9}))$/.test(t_phone))){
+                                    layer.msg('联系方式填写错误')
+                                    return;
+                                }
+							}
+
+                            layer.open({
+                                title: '提交方式',
+                                content: '请选择提交方式',
+                                icon: 0,
+                                btnAlign:'c',
+                                btn: ['在线支付', '提交线下人工审核'],
+                                yes: function (index) {
+                                    layer.msg('敬请期待')
+                                },
+                                btn2: function (index) {
+                                    $.ajax({
+                                        type: "post",
+                                        url: url,
+                                        data: {
+                                            field:field,
+                                            agency:agency,
+                                            product_id:product_id,
+                                            num:num,
+                                            price:price,
+                                            total_price:total_price,
+                                            real_name:real_name,
+                                            wechatid:wechatid,
+                                            phone:phone,
+                                            t_phone:t_phone,
+											type:type,
+                                        },
+                                        success: function(res) {
+                                            if(res.code===1){
+                                                layer.msg(res.msg,function(){
+                                                    history.go(-1)
+                                                });
+                                            }else{
+                                                layer.msg(res.msg);
+                                            }
+                                        },
+                                        error: function(err) {
+                                            layer.msg('提交失败')
+                                        }
+                                    })
+                                }
+                            })
+
+                        }
+                    }
+                },
+				aj(url,field,_this){
+                    $.ajax({
+                        type: "post",
+                        url: url,
+                        data: {field:field},
+                        success: function(res) {
+                            if(res.code===1){
+                                _this.agency=res.data;
+                                console.log(_this.agency)
+
+                            }else{
+                                layer.msg(res.msg);
+                            }
+                        },
+                        error: function(err) {
+                            layer.msg('提交失败')
+                        }
+                    })
+				}
+
+            });
+		</script>
+
+	</body>
+</html>

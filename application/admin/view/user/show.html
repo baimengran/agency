@@ -1,0 +1,213 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+<head>
+    {include file='layout/header'}
+</head>
+<body>
+<div class="wrapper wrapper-content  animated fadeInRight">
+    <div class="row">
+        <div class="col-sm-8">
+            <div class="ibox">
+                <div class="ibox-content">
+                    <span class="text-muted small pull-right">最后更新：<i class="fa fa-clock-o"></i> {$user.update_time|date='Y-m-d H:i:s'}</span>
+                    <h2 class="label label-primary" style="height: 50px;width:90px">用户管理</h2>
+
+                    <hr>
+                    <div class="clients-list">
+                        <ul class="nav nav-tabs">
+                            <span class="pull-right small text-muted">{$total} 个产品</span>
+                            <li class="active"><a data-toggle="tab" href="#tab-2" aria-expanded="true"><i
+                                    class="fa fa-briefcase"></i> 代理产品</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div id="tab-2" class="tab-pane active">
+                                <div class="slimScrollDiv" style="position: relative; width: auto; height: 100%;">
+                                    <div class="full-height-scroll" style="width: auto; ">
+                                        <div class="table-responsive">
+                                            <table class="table table-striped table-hover">
+                                                <tbody class="tbody product">
+                                                {foreach $product as $val}
+                                                <tr>
+                                                    <td><a data-toggle="tab" href="" class="client-link"
+                                                           aria-expanded="false">{$val.product.title}</a>
+                                                    </td>
+                                                    <td>{$val.num} 件/箱</td>
+                                                    <td><img alt="image" width="50px" class="img-circle" src="{$val.product.pic}"></td>
+                                                    <td class="client-status">{$val.create_time}</td>
+                                                </tr>
+                                                {/foreach}
+                                                </tbody>
+                                            </table>
+                                            <div id="product" style="text-align:right;">{$page2|raw}</div>
+                                        </div>
+                                    </div>
+                                    <div class="slimScrollBar"
+                                         style="background: rgb(0, 0, 0); width: 4px; position: absolute; top: 0px; opacity: 0.4; display: none; border-radius: 7px; z-index: 99; right: 1px; height: 365.112px;"></div>
+                                    <div class="slimScrollRail"
+                                         style="width: 4px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; background: rgb(51, 51, 51); opacity: 0.2; z-index: 90; right: 1px;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="ibox ">
+                <div class="ibox-content">
+                    <div class="tab-content">
+                        <div id="contact-1" class="tab-pane active">
+                            <div class="row">
+                                <div class="col-lg-4 text-center">
+                                    <h2>{$user.real_name}</h2>
+
+                                    <div class="m-b-sm">
+                                        <img alt="image" class="img-circle" src="{$user.avatar}" style="width: 62px">
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="col-lg-8">
+                                    <div style="font-size: 20px;float: left;" class="label label-primary"><i
+                                            class="fa fa-mobile-phone"></i> 手机号
+                                    </div>
+                                    <div style="font-size: 20px;float:right;" class="label label-primary"><i
+                                            class="fa fa-mobile-phone"></i> 微信号
+                                    </div>
+                                    <div style="clear:both"></div>
+                                </div>
+                                <div class="col-lg-8">
+                                    <div style="float:left;padding-top:10px"><h3>{$user.phone}</h3></div>
+
+                                    <div style="float:right;padding-top:10px"><h3>{$user.wechatid}</h3></div>
+                                    <div style="clear:both"></div>
+                                </div>
+                                <hr>
+                            </div>
+                            <div class="client-detail">
+                                <div class="slimScrollDiv" style="position: relative; width: auto; height: 100%;">
+                                    <div class="full-height-scroll" style="width: auto; height: 100%;">
+                                        <strong>其他信息</strong>
+                                        <ul class="list-group clear-list">
+                                            <li class="list-group-item fist-item">
+                                                <span class="pull-right"> {$user.nickname}</span> 昵称
+                                            </li>
+                                            <li class="list-group-item">
+                                                <span class="pull-right"> {$user.agency.title} </span> 代理级别
+                                            </li>
+                                            <li class="list-group-item">
+                                                <span class="pull-right"> {if $user.status==0}审核中{elseif $user.status==1/}已通过{else/}未通过{/if} </span>
+                                                审核状态
+                                            </li>
+                                            <li class="list-group-item">
+                                                <span class="pull-right"> {$user.status_time|date='Y-m-d H:i:s'} </span>
+                                                审核时间
+                                            </li>
+                                            <li class="list-group-item">
+                                                <span class="pull-right"> {$user.province} </span> 省份
+                                            </li>
+                                            <li class="list-group-item">
+                                                <span class="pull-right"> {$user.city} </span> 城市
+                                            </li>
+                                            <li class="list-group-item">
+                                                <span class="pull-right"> {$user.create_time|date='Y-m-d H:i:s'} </span>
+                                                注册日期
+                                            </li>
+                                        </ul>
+                                        <strong>备注</strong>
+                                        <!--<p>-->
+                                            <!--40亿影帝黄渤先生明明可以靠脸吃饭，可是他却偏偏靠才华，唱歌居然也这么好听！-->
+                                        <!--</p>-->
+                                        <hr>
+
+                                    </div>
+                                    <div class="slimScrollBar"
+                                         style="background: rgb(0, 0, 0); width: 4px; position: absolute; top: 0px; opacity: 0.4; display: block; border-radius: 7px; z-index: 99; right: 1px; height: 356.256px;"></div>
+                                    <div class="slimScrollRail"
+                                         style="width: 4px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; background: rgb(51, 51, 51); opacity: 0.2; z-index: 90; right: 1px;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+{include file='layout/footer'}
+<script>
+    function show(title,url,id,w,h){
+        var index = layer.open({
+            type: 2,
+            title: title,
+            content: url
+        });
+        layer.full(index);
+    }
+
+    $('#product .pagination').delegate('a','click',function(){
+        var url = $(this).attr('href')+'&id='+{$user.id}+'&product=1'; //将要访问的地址
+        console.log(url)
+        $.ajax({
+            url:url,
+            success:function(res){
+                page1(res); //page方法用于替换数据
+            }
+        })
+        return false; //阻止a标签默认跳转的行为
+    });
+    function page1(res){
+        html = ''; //准备一个容器
+        $('#product .pagination').html(res.page2); //请求到后台的数据，替换之前分页按钮
+        delete res.page2;//删除之前返回的分页按钮 说一下为什么要删除这个吧.因为返回的json中,page也是其中的一个下标，也会进入for循环中，所以要提前删掉，不然会出现undefined的情况。
+        delete res.code;//删除之前后台返回的状态码
+        for(var k in res){
+            //这里是拼接html标签
+            html+='<tr>\n' +
+                '<td><a data-toggle="tab" href="#company-1" class="client-link"\n' +
+                'aria-expanded="false">'+res[k].product.title+'</a>\n' +
+                '</td>\n' +
+                '<td>'+res[k].num+' 件</td>\n' +
+                '<td><img alt="image" width="46px" class="img-circle" src="'+res[k].product.pic+'"></td>\n' +
+                '<td class="client-status">'+res[k].create_time+'</td>\n' +
+                '</tr>';
+            // tr+='<tr><td>'+res[k].username+'</td><td>'+res[k].realname+'</td><td>'+res[k].role_name+'</td><td>'+res[k].last_login_time+'</td><td>'+res[k].seller_hotel_name+'</td></tr>';
+        }
+        $('.product').html(html);//把数据覆盖到所需要填充数据的地方
+    }
+
+    $('#AjaxPage .pagination').delegate('a','click',function(){
+        var url = $(this).attr('href')+'&id='+{$user.id}; //将要访问的地址
+        console.log(url)
+        $.ajax({
+            url:url,
+            success:function(res){
+                page(res); //page方法用于替换数据
+            }
+        })
+        return false; //阻止a标签默认跳转的行为
+    });
+    function page(res){
+        html = ''; //准备一个容器
+        $('#AjaxPage .pagination').html(res.page1); //请求到后台的数据，替换之前分页按钮
+        delete res.page1;//删除之前返回的分页按钮 说一下为什么要删除这个吧.因为返回的json中,page也是其中的一个下标，也会进入for循环中，所以要提前删掉，不然会出现undefined的情况。
+        delete res.code;//删除之前后台返回的状态码
+        for(var k in res){
+            //这里是拼接html标签
+            html+='<tr>'+
+                '<td><a data-toggle="tab" href="" class="client-link"'+
+            'aria-expanded="false">'+res[k].real_name+'</a>'+
+            '</td>'+
+            '<td>'+res[k].agency.title+'</td>'+
+            '<td><img alt="image" width="50px" class="img-circle" src="'+res[k].avatar+'"></td>'+
+                '<td>'+res[k].province+'·'+res[k].city+'</td>'+
+            '<td class="client-status">'+res[k].create_time+'</td>'+
+            '</tr>'
+           // tr+='<tr><td>'+res[k].username+'</td><td>'+res[k].realname+'</td><td>'+res[k].role_name+'</td><td>'+res[k].last_login_time+'</td><td>'+res[k].seller_hotel_name+'</td></tr>';
+        }
+        $('.user').html(html);//把数据覆盖到所需要填充数据的地方
+    }
+</script>
+</html>

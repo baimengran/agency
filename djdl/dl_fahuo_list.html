@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="renderer" content="webkit" />
+		<meta name="force-rendering" content="webkit" />
+		<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<link rel="stylesheet" href="__IN_CSS__/style.css">
+		<link rel="stylesheet" href="__IN_JS__/layer/mobile/need/layer.css">
+		<link rel="stylesheet" href="__IN_CSS__/vantIndex.css">
+		<link rel="stylesheet" href="http://at.alicdn.com/t/font_1218663_avyf5h8t28e.css">
+		
+		<script src="__IN_JS__/jquery.min.js"></script>
+		<script src="__IN_JS__/vue.min.js"></script>
+		<script src="__IN_JS__/vant.js"></script>
+		<script src="__IN_JS__/layer/layer.js"></script>
+		<title>发货记录</title>
+		<style>
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			body{
+				background-color: #f0f0f0;
+				min-height: 100vh;
+			}
+			.webbox{
+				padding-bottom: 80px;
+			}
+			.bu_box{
+				width: 100%;
+				height: 40px;
+			}
+			.bu_box>div{
+				border: 1px solid transparent;
+				border-bottom: 1px solid #dcdcdc;
+			}
+			.bu_box>div.cur{
+				border: 1px solid #dcdcdc;
+				border-bottom: 1px solid transparent;
+			}
+			.table_d{
+				width: 100%;
+				padding: 24px 9px;
+				-webkit-box-sizing: border-box;
+				-moz-box-sizing: border-box;
+				box-sizing: border-box;
+			}
+			.list_t{
+				width: 100%;
+				border: 1px solid #dadada;
+				text-align: center;
+			}
+			.list_t th,.list_t td{
+				border: 1px solid #DADADA;
+				font-size: 12px;
+				height: 40px;
+			}
+			.list_t th{
+				height: 35px;
+			}
+			.xq_btn{
+				width: 35px;
+				height: 24px;
+				background-color: #60b560;
+				color: #fff;
+				font-size: 15px;
+				border-radius: 4px;
+				margin: 0 auto;
+				font-size: 12px;
+			}
+			.cz_box{
+				justify-content: space-between;
+				padding: 0 6px;
+				width: 100%;
+				-webkit-box-sizing: border-box;
+				-moz-box-sizing: border-box;
+				box-sizing: border-box;
+				position: fixed;
+				bottom: 10px;
+			}
+			.back_btn{
+				width: 85px;
+				height: 34px;
+				background-color: #5ac2dd;
+				color: #fff;
+				font-size: 15px;
+				border-radius: 4px;
+			}
+			.sub_btn{
+				width: 85px;
+				height: 34px;
+				background-color: #60b560;
+				color: #fff;
+				font-size: 15px;
+				border-radius: 4px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="webbox" id="webbox">
+			<div class="bu_box disflex ju_b">
+				<div class="flex1 disflex ju_c aic" :class="bhtype==0?'cur':''" @click="bh_cur(0)">待付款</div>
+				<div class="flex1 disflex ju_c aic" :class="bhtype==1?'cur':''" @click="bh_cur(1)">已发货</div>
+				<div class="flex1 disflex ju_c aic" :class="bhtype==2?'cur':''" @click="bh_cur(2)">已取消</div>
+			</div>
+			<div class="table_d" v-if="bhtype==0">
+				<table class="list_t"as border="1" cellpadding="0" cellspacing="0">
+					<tr>
+						<th style="width: 24px;"></th>
+						<th>发货单号</th>
+						<th>数量</th>
+						<th>状态</th>
+						<th></th>
+					</tr>
+					<tr v-for="(item,index) in 3">
+						<td v-html="index+1"></td>
+						<td>R19072616593939</td>
+						<td>10</td>
+						<td>待付款</td>
+						<td>
+							<div class="xq_btn disflex ju_c aic">详情</div>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div class="table_d" v-if="bhtype==1">
+				<table class="list_t"as border="1" cellpadding="0" cellspacing="0">
+					<tr>
+						<th style="width: 24px;"></th>
+						<th>发货单号</th>
+						<th>数量</th>
+						<th>状态</th>
+						<th></th>
+					</tr>
+					<tr v-for="(item,index) in 3">
+						<td v-html="index+1"></td>
+						<td>R19072616593939</td>
+						<td>10</td>
+						<td>待发货货</td>
+						<td>
+							<div class="xq_btn disflex ju_c aic">详情</div>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div class="table_d" v-if="bhtype==2">
+				<table class="list_t"as border="1" cellpadding="0" cellspacing="0">
+					<tr>
+						<th style="width: 24px;"></th>
+						<th>发货单号</th>
+						<th>数量</th>
+						<th>状态</th>
+						<th></th>
+					</tr>
+					<tr v-for="(item,index) in 3">
+						<td v-html="index+1"></td>
+						<td>R19072616593939</td>
+						<td>10</td>
+						<td>已取消</td>
+						<td>
+							<div class="xq_btn disflex ju_c aic" @click="getxq(1)">详情</div>
+						</td>
+					</tr>
+				</table>
+			</div>
+			
+			<div class="cz_box disflex ju_b">
+				<a class="sub_btn disflex ju_c aic" href="dl_fahuo.html">我要发货</a>
+				<a class="back_btn disflex ju_c aic" href="javascript:history.go(-1);">返回首页</a>
+			</div>
+		</div>
+		<script>
+			var vm=new Vue({
+			  el: '#webbox',
+			  data: {
+					bhtype:0
+				},
+				created: function () {},
+				mounted () {},
+				methods:{
+					bh_cur(num){
+						if(this.bhtype==num){
+							return
+						}
+						this.bhtype=num
+					}
+				}
+			})
+			function saveadd(){
+			  	console.log('vm.danjia:'+vm.danjia)
+			  console.log('vm.xiangshu:'+vm.xiangshu)
+			  console.log('vm.heji:'+vm.heji)
+			  console.log('vm.beizhu:'+vm.beizhu)
+			  
+			  if(vm.danjia==''){
+			    layer.msg("请输入每箱单价")
+			    return
+			  }
+			  // if(vm.usertel=='' || !(/^1\d{10}$/.test(vm.usertel))){
+			  //     layer.msg("手机号码有误")
+			  //     return
+			  // }
+			  if(vm.xiangshu==""){
+			    layer.msg("请输入箱数")
+			    return
+			  }
+			  if(vm.heji==''){
+			    layer.msg("请输入合计金额")
+			    return
+			  }
+				$.ajax({
+					type: "post",
+					url: '',
+					data: {
+						'1':vm.danjia,
+						'2':vm.xiangshu,
+						'3':vm.heji,
+						'4':vm.beizhu,
+					},
+					success: function(res) {
+						that.paykg == true
+				
+						if(ret.error==0){
+							layer.msg('提交成功')
+						 
+						}else{
+							layer.msg('操作失败')
+						}
+				
+					},
+					error: function(err) {
+						that.paykg == true
+						layer.msg('获取失败')
+						console.log(err)
+					}
+				})
+			}
+		</script>
+	</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+<head>
+    {include file='layout/header'}
+</head>
+<body>
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-xs-12" style="width: 470px">
+            <div class="contact-box animated pulse">
+                <a href="javascript:void(0)">
+                    <div class="col-xs-5" style="width:100px;">
+                        <div class="text-center">
+                            <img alt="image" width="80px" class="img-circle m-t-xs" src="{$user.avatar}">
+                            <div class="m-t-xs font-bold">{$user.agency.title}</div>
+                        </div>
+                    </div>
+                </a>
+                <div class="col-xs-6" style="width: 250px">
+                    <a href="javascript:void(0)">
+                        <h3><strong>{$user.real_name}</strong></h3>
+                        <p><i class="fa fa-map-marker"></i> {$user.province}·{$user.city}</p>
+                    </a>
+                    <address>
+                        <a href="javascript:void(0)">
+                            <strong>微信号：</strong><span>{$user.wechatid}</span><br>
+                            <strong>审核时间：</strong><span>{$user.status_time|date='Y-m-d H:s:i'}</span><br>
+                            <strong>授权编号：</strong><span>{$user.auth_no}</span><br>
+                        </a>
+                        <hr>
+                        <abbr title="Phone">Tel:</abbr> {$user.phone}
+                    </address>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+
+    </div>
+</div>
+</body>
+{include file='layout/footer'}
+</html>

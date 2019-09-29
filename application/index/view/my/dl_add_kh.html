@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="renderer" content="webkit" />
+		<meta name="force-rendering" content="webkit" />
+		<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<link rel="stylesheet" href="__IN_CSS__/style.css">
+		<link rel="stylesheet" href="__IN_CSS__/jquery-weui.min.css">
+		<link rel="stylesheet" href="http://at.alicdn.com/t/font_1218663_avyf5h8t28e.css">
+		
+		<script src="__IN_JS__/jquery.min.js"></script>
+		<script src="__IN_JS__/jquery-weui.min.js"></script>
+		<script src="__IN_JS__/vue.min.js"></script>
+		<script src="__IN_JS__/layer/layer.js"></script>
+		<title>添加客户</title>
+		<style>
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			body{
+				background-color: #f0f0f0;
+				min-height: 100vh;
+			}
+			.webbox{
+				padding: 30px 6px 80px;
+				-webkit-box-sizing: border-box;
+				-moz-box-sizing: border-box;
+				box-sizing: border-box;
+			}
+			.mb10{
+				margin-bottom: 10px;
+			}
+			.w100{
+				width: 100%;
+			}
+			.f_box{
+				margin-bottom: 16px;
+			}
+			.f_name{
+				font-size: 14px;
+				color: #141414;
+				font-weight: bold;
+				margin-bottom: 4px;
+			}
+			.ints{
+				width: 100%;
+				height: 36px;
+				-webkit-box-sizing: border-box;
+				-moz-box-sizing: border-box;
+				box-sizing: border-box;
+				border: 1px solid #c2c2c2;
+				border-top: 3px solid #c2c2c2;
+				border-radius: 6px;
+				background-color: #efefef;
+				padding: 0 14px;
+			}
+			.seles{
+				width: 100%;
+				height: 36px;
+				-webkit-box-sizing: border-box;
+				-moz-box-sizing: border-box;
+				box-sizing: border-box;
+				border: 1px solid #c2c2c2;
+				border-radius: 6px;
+				background-color: #efefef;
+				padding: 0 14px;
+			}
+			.bgfff{
+				background-color: #fff;
+			}
+			.cz_box{
+				position: fixed;
+				left: 0;
+				bottom: 10px;
+				width: 100%;
+				-webkit-box-sizing: border-box;
+				-moz-box-sizing: border-box;
+				box-sizing: border-box;
+				justify-content: space-between;
+				padding: 0 6px;
+			}
+			.back_btn{
+				width: 55px;
+				height: 34px;
+				background-color: #5ac2dd;
+				color: #fff;
+				font-size: 15px;
+				border-radius: 4px;
+			}
+			.sub_btn{
+				width: 100px;
+				height: 34px;
+				background-color: #60b560;
+				color: #fff;
+				font-size: 15px;
+				border-radius: 4px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="webbox" id="webbox">
+			<!-- <div class="w100 f_box">
+				<div class="f_name">选择发货产品</div>
+				<select class="seles" name="fhcp" id="">
+					<option value="">请选择发货产品</option>
+					<option value="">2</option>
+					<option value="">3</option>
+					<option value="">4</option>
+					<option value="">5</option>
+				</select>
+			</div> -->
+			<div class="w100 f_box">
+				<div class="f_name">顾客姓名</div>
+				<input class="ints bgfff" type="text"  placeholder="请输入顾客姓名" v-model="name"/>
+			</div>
+			<div class="w100 f_box">
+				<div class="f_name">联系方式</div>
+				<input class="ints bgfff" type="text"  placeholder="请输入手机号" v-model="phone"/>
+			</div>
+			<div class="w100 f_box">
+				<div class="f_name">顾客生日</div>
+				<input id="my-input1" class="ints bgfff" type="text" placeholder="可选填" onChange="usertime(event)" :placeholder="birthday"/>
+			</div>
+			
+			<!-- <input id="my-input" type="text" date-format='yyyy-mm-dd' onChange="usertime(event)" :placeholder="birthday"/> -->
+			<div class="w100 f_box">
+				<div class="f_name">收货地址</div>
+				<input class="ints bgfff" type="text"  placeholder="请输入收货地址" v-model="address"/>
+			</div>
+			
+			<div class="w100 f_box">
+				<div class="f_name">购买时间</div>
+				<input id="my-input" class="ints bgfff" type="text" placeholder="可选填" onChange="usertime1(event)" :placeholder="buy_time"/>
+			</div>
+			<div class="w100 f_box">
+				<div class="f_name">购买数量</div>
+				<input class="ints bgfff" type="text"  placeholder="可选填" v-model="buy_num"/>
+			</div>
+			<div class="cz_box disflex ju_b">
+				<div class="sub_btn disflex ju_c aic" @click="saveadd">提交信息</div>
+				<a class="back_btn disflex ju_c aic" href="javascript:history.go(-1);">返回</a>
+			</div>
+		</div>
+		<script>
+			var vm=new Vue({
+			  el: '#webbox',
+			  data: {
+					birthday: '',
+					buy_time:'',
+					name:'',
+					phone:'',
+					address:'',
+					buy_num:'',
+				},
+				created: function () {},
+				mounted () {
+					$("#my-input").calendar({
+						dateFormat:'yyyy-mm-dd'
+					});
+					$("#my-input1").calendar({
+						dateFormat:'yyyy-mm-dd'
+					});
+				},
+				methods:{
+			      saveadd:function(){
+                      saveadd()
+				  },
+				}
+			})
+			function saveadd(){
+			  if(vm.name==''){
+			    layer.msg("请输入顾客姓名")
+			    return
+			  }
+
+			  if(vm.phone==''){
+			    layer.msg("请输入顾客电话")
+			    return
+			  }
+			  if(!(/^((0\d{2,3}-\d{7,8})|(1[3584]\d{9}))$/.test(vm.phone))){
+				  layer.msg('顾客电话填写错误')
+				  return;
+              }
+
+			  if(vm.address==''){
+			    layer.msg("请输入收货地址")
+			    return
+			  }
+
+				$.ajax({
+					type: "post",
+					url: '{:url("my_address/create_client")}',
+					data: {
+						'name':vm.name,
+						'birthday':vm.birthday,
+						'phone':vm.phone,
+						'address':vm.address,
+						'buy_num':vm.buy_num,
+						'buy_time':vm.buy_time,
+					},
+					success: function(res) {
+						if(res.code==1){
+							layer.msg('提交成功',function(){
+                                history.go(-1)
+							})
+
+						}else{
+							layer.msg('操作失败')
+						}
+					},
+					error: function(err) {
+						layer.msg('系统错误')
+					}
+				})
+			}
+			
+			function usertime(e){
+				// console.log(e.target.value)
+				var stime=e.target.value.split('/')
+				// stime=stime.join('-')
+				vm.birthday=stime[0]
+				// console.log(values)
+				// console.log(displayValues)
+			}
+			function usertime1(e){
+				// console.log(e.target.value)
+				var stime=e.target.value.split('/')
+				console.log(stime);
+				// stime=stime.join('-')
+				vm.buy_time=stime[0]
+				
+			}
+		</script>
+	</body>
+</html>

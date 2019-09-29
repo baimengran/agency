@@ -1,0 +1,112 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+<head>
+    {include file='layout/header'}
+</head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+    <!-- Panel Other -->
+    <div class="ibox float-e-margins">
+        <div class="ibox-title">
+            <h5>商品列表</h5>
+        </div>
+        <div class="ibox-content">
+            <!--搜索框开始-->
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="col-sm-2" style="width: 130px">
+                    <div class="input-group">
+                    <a href="{:url('create')}">
+                    <button class="btn btn-outline btn-primary" type="button">添加商品</button>
+                    </a>
+                    </div>
+                    </div>
+                    <form name="admin_list_sea" class="form-search" method="post" action="{:url('index')}">
+                        <div class="col-sm-3">
+                            <div class="input-group">
+                                <input type="text" id="key" class="form-control" name="key" value="{$val}"
+                                       placeholder="输入需查询的商品名称"/>
+                                <span class="input-group-btn">
+                                    <button type="submit" class="btn btn-primary"><i
+                                            class="fa fa-search"></i> 搜索</button>
+                                </span>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!--搜索框结束-->
+            <div class="hr-line-dashed"></div>
+            <div class="example-wrap">
+                <div class="example">
+                    <table class="table table-bordered table-hover text-center" >
+                        <thead>
+                        <tr class="long">
+                            <!--<th width="5%">ID</th>-->
+                            <th>商品标题</th>
+                            <th>单价</th>
+                            <th>每箱数量</th>
+                            <th>描述</th>
+                            <th>商品图片</th>
+                            <th>操作</th>
+                            <!--<th width="10%">首页推荐</th>-->
+                        </tr>
+                        </thead>
+
+                        <script id="list-template" type="text/html">
+
+                        </script>
+                        <tbody id="list-content">
+                        {volist name="data" id="v"}
+                        <tr class="long-td">
+                            <!--<td>{$v.id}</td>-->
+                            <td>{$v.title}</td>
+                            <td>{$v.price}</td>
+                            <td>{$v.num}</td>
+                            <td>{$v.desc}</td>
+                            <td><img src="{$v.pic}" class="img-circle" style="width:35px;height:35px"/></td>
+                            <td>
+                                <a href="javascript:;" onclick="edit({$v.id})" class="btn btn-primary btn-xs btn-outline">
+                                    <i class="fa fa-paste"></i> 编辑</a>&nbsp;
+                                <a href="javascript:;" onclick="del({$v.id})" class="btn btn-danger btn-xs btn-outline">
+                                    <i class="fa fa-trash-o"></i> 删除</a>
+                            </td>
+                        </tr>
+                        {/volist}
+
+                        </tbody>
+                    </table>
+                    <div id="AjaxPage" style="text-align:right;">{$data|raw}</div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- 加载动画 -->
+
+
+{include file="layout/footer" /}
+<script>
+
+    //编辑文章
+    function edit(id){
+        location.href = './edit/id/'+id+'.html';
+    }
+
+    //删除文章
+    function del(id){
+        lunhui.confirm(id,'{:url("destroy")}');
+    }
+    //文章状态
+    function status(id) {
+        lunhui.marquee_status(id, '{:url("status")}');
+    }
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html class="pixel-ratio-1">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>首页</title>
+		<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no">
+		<link rel="stylesheet" href="__IN_CSS__/sm.min.css">
+		<link rel="stylesheet" href="__IN_CSS__/sm-extend.min.css">
+		<link rel="stylesheet" href="__IN_CSS__/app.css?349632766">
+		<link rel="stylesheet" href="__IN_CSS__/vantIndex.css">
+		<link rel="stylesheet" href="__IN_CSS__/style.css">
+		<link rel="stylesheet" href="__IN_JS__/layer/mobile/need/layer.css">
+		<!-- <link rel="stylesheet" type="text/css" href="__IN_CSS__/class.css" /> -->
+		<link rel="stylesheet" href="http://at.alicdn.com/t/font_1218663_avyf5h8t28e.css">
+		<script src="__IN_JS__/jquery.min.js"></script>
+		<script src="__IN_JS__/vue.min.js"></script>
+		<script src="__IN_JS__/vant.js"></script>
+		<script src="__IN_JS__/Area.js"></script>
+		<script src="__IN_JS__/layer/layer.js"></script>
+		<style id="__WXWORK_INNER_SCROLLBAR_CSS">
+			::-webkit-scrollbar {
+				width: 12px !important;
+				height: 12px !important;
+			}
+
+			::-webkit-scrollbar-track:vertical {}
+
+			::-webkit-scrollbar-thumb:vertical {
+				background-color: rgba(136, 141, 152, 0.5) !important;
+				border-radius: 10px !important;
+				background-clip: content-box !important;
+				border: 2px solid transparent !important;
+			}
+
+			::-webkit-scrollbar-track:horizontal {}
+
+			::-webkit-scrollbar-thumb:horizontal {
+				background-color: rgba(136, 141, 152, 0.5) !important;
+				border-radius: 10px !important;
+				background-clip: content-box !important;
+				border: 2px solid transparent !important;
+			}
+
+			::-webkit-resizer {
+				display: none !important;
+			}
+			.addcar{
+				font-style: normal!important;
+				width: 92px;
+				height: 28px;
+				background-color: #4bdb57;
+				border-radius: 2px;
+				color: #fff;
+				margin-left: 8px;
+				
+			}
+		</style>
+	</head>
+	<body>
+		<div class="page-group">
+			<div class="page page-current" id="home">
+				<header class="bar bar-nav">
+					<h1 class="title">维康源</h1>
+				</header>
+				<div class="bar bar-tab bar-footer">
+					<a class="tab-item external active" href="index.html">
+						<span class="icon icon-home"></span>
+						<span class="tab-label">商品</span>
+					</a>
+					<a class="tab-item external" href="car.html">
+						<span class="icon icon-cart"></span>
+						<span class="tab-label">购物车</span>
+						<span class="badge" id="cart-tip" style="display: none;">0</span>
+					</a>
+					<a class="tab-item external" href="order.html">
+						<span class="icon icon-menu"></span>
+						<span class="tab-label">订单</span>
+					</a>
+					<a class="tab-item external" href="my.html">
+						<span class="icon icon-me"></span>
+						<span class="tab-label">我的</span>
+					</a>
+				</div>
+				<div class="content native-scroll">
+					<div class="content-inner">
+						<div id="hotlist">
+							<div class="card">
+								<div class="card-content">
+									<div class="card-content-inner"><img src="images/images/goods_03.jpg"></div>
+								</div>
+								<div class="card-footer">七木健康枕1个 
+								<span class="disflex aic ">
+									<i class="price disflex aic">￥777.00元</i> 
+									<i class="addcar aic disflex  ju_c" onclick="addcar()">加入购物车</i>
+								</span> 
+							</div>
+							</div>
+							<div class="card">
+								<div class="card-content">
+									<div class="card-content-inner"><img src="images/images/goods_03.jpg"></div>
+								</div>
+								<div class="card-footer">七木健康枕1个 <span class="disflex aic "><i class="price disflex aic">￥777.00元</i> <i class="addcar aic disflex  ju_c">加入购物车</i></span> </div>
+							</div>
+						</div>
+						<div class="card">
+							<div class="card-content">
+								<div class="list-block media-list">
+									<ul id="productlist"></ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="__IN_JS__/zepto.js"></script>
+		<script src="__IN_JS__/sm.js"></script>
+		<script src="__IN_JS__/sm-extend.js"></script>
+		<script>
+			var vm=new Vue({
+			  el: '#wrap',
+			  data: {},
+				created: function () {
+				  // `this` 指向 vm 实例
+				    
+				    // fnInitEvent()
+				    // fnInitData()
+				},
+				mounted () {},
+			})
+			function addcar(id){
+				layer.msg('加入购物车')
+					$.ajax({
+						type: "post",
+						url: '',
+						data: {
+							'goods_id': id, 
+							
+						},
+						success: function(res) {
+							// that.paykg == true
+					
+							if(ret.error==0){
+								layer.msg('添加成功')
+							 
+							}else{
+								layer.msg('操作失败')
+							}
+					
+						},
+						error: function(err) {
+							layer.msg('获取失败')
+							console.log(err)
+						}
+					})
+				}
+			
+		</script>
+		<!-- <script src="__IN_JS__/app.js?1988290038"></script> -->
+		
+	</body>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+<head>
+    {include file='layout/header'}
+<style type="text/css">
+/* TAB */
+.nav-tabs.nav>li>a {
+    padding: 10px 25px;
+    margin-right: 0;
+}
+.nav-tabs.nav>li>a:hover,
+.nav-tabs.nav>li.active>a {
+    border-top: 3px solid #1ab394;
+    padding-top: 8px;
+    border-bottom: 1px solid #FFFFFF;
+}
+.nav-tabs>li>a {
+    color: #A7B1C2;
+    font-weight: 500;  
+    margin-right: 2px;
+    line-height: 1.42857143;
+    border: 1px solid transparent;
+    border-radius: 0;
+}
+</style>
+</head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>网站配置</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="form_basic.html#">
+                            <i class="fa fa-wrench"></i>
+                        </a>
+                        <a class="close-link">
+                            <i class="fa fa-times"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">       
+                    <div class="panel blank-panel">
+                        <div class="panel-heading">                     
+                            <div class="panel-options">
+                                <ul class="nav nav-tabs">
+                                    <li class="active"><a data-toggle="tab" href="#tab-1" aria-expanded="true">基本配置</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div class="tab-content">
+                                <div id="tab-1" class="tab-pane active">
+                                    <form action="{:url('save')}" method="post" id="site" class="form-horizontal">
+                                        <div class="hr-line-dashed"></div>                                
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">网站标题：</label>
+                                            <div class="input-group col-sm-4">                                              
+                                                <input type="text" class="form-control" name="title" value="{$site.title?$site.title:''}">
+                                                <span class="help-block m-b-none"><i class="fa fa-info-circle"></i> 网站标题</span>                                           
+                                            </div>
+                                        </div>                                 
+                                        <div class="hr-line-dashed"></div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">商城开关：</label>
+                                            <div class="input-group col-sm-4">
+                                                <div class=" i-checks">
+                                                    <input type="radio" name='status' value="1" {if !empty($site) AND $site.status==1}checked{/if} />开启&nbsp;&nbsp;
+                                                    <input type="radio" name='status' value="0" {if empty($site)}checked{elseif $site.status==0}checked{/if}/>关闭
+                                                </div>
+                                                <span class="help-block m-b-none"><i class="fa fa-info-circle"></i> 关闭后普通用户将不能在商城购物</span>
+                                            </div>
+                                        </div>
+                                        <div class="hr-line-dashed"></div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">优惠：</label>
+                                            <div class="input-group col-sm-4">
+                                                <input type="text" class="form-control" name="youhui" value="{$site.youhui?$site.youhui:''}">
+                                                <span class="help-block m-b-none"><i class="fa fa-info-circle"></i> 普通用户下单优惠</span>
+                                            </div>
+                                        </div>
+                                        <div class="hr-line-dashed"></div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">运费：</label>
+                                            <div class="input-group col-sm-4">
+                                                <input type="text" class="form-control" name="yunfei" value="{$site.yunfei?$site.yunfei:''}">
+                                                <span class="help-block m-b-none"><i class="fa fa-info-circle"></i> 普通用户下单运费</span>
+                                            </div>
+                                        </div>
+                                        <div class="hr-line-dashed"></div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">联系我们：</label>
+                                            <div class="input-group col-sm-4">
+                                                <input type="text" class="form-control" name="contact_us" value="{$site.contact_us?$site.contact_us:''}">
+                                                <span class="help-block m-b-none"><i class="fa fa-info-circle"></i> 联系方式</span>
+                                            </div>
+                                        </div>
+                                        <div class="hr-line-dashed"></div>
+
+                                        <div class="form-group">
+                                            <div class="col-sm-4 col-sm-offset-3">
+                                                <button class="btn btn-primary" type="submit"><i class="fa fa-save"></i> 保存信息</button>&nbsp;&nbsp;&nbsp;
+                                                <a class="btn btn-danger" href="javascript:history.go(-1);"><i class="fa fa-close"></i> 返回</a>
+                                            </div>
+                                        </div>                               
+                                    </form>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>         
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{include file="layout/footer" /}
+
+<script type="text/javascript">
+    $(function () {
+        $('#site').ajaxForm({
+            //beforeSubmit: checkForm, // 此方法主要是提交前执行的方法，根据需要设置
+            success: complete, // 这是提交后的方法
+            dataType: 'json'
+        });
+
+        function complete(data) {
+            // console.log(11)
+            if (data.code == 1) {
+                layer.msg(data.msg, {icon: 6, time: 1500, shade: 0.1}, function (index) {
+                    window.location.href = "{:url('config/index')}";
+                });
+            } else {
+                layer.msg(data.msg, {icon: 5, time: 1500});
+                return false;
+            }
+        }
+
+    });
+</script>
+</body>
+</html>

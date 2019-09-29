@@ -1,0 +1,258 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+<head>
+    {include file="layout/header"}
+    <link href="__JS__/plugins/webuploader/webuploader.css" rel="stylesheet">
+</head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{$agency?'编辑代理':'新增代理'}</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="form_basic.html#">
+                            <i class="fa fa-wrench"></i>
+                        </a>
+                        <a class="close-link">
+                            <i class="fa fa-times"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <form class="form-horizontal" name="userEdit" id="userEdit" method="post"
+                          action="{$agency?'/admin/agency/update':'store'}">
+                        <input type="hidden" name="id" value="{$agency?$agency.id:''}">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">代理名称：</label>
+                            <div class="input-group col-sm-4">
+                                <input id="title" type="text" class="form-control" name="title" required=""
+                                       aria-required="true" value="{$agency?$agency.title:''}">
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        {if isset($agency_product)}
+                            {foreach $agency_product as $v}
+                        <div>
+                        <div class="form-group">
+                        <label class="col-sm-3 control-label">商品名称：</label>
+                        <div class="input-group col-sm-4">
+                            <input type="text" class="form-control" disabled value="{$v.title}">
+                            <input type="hidden" name="product[{$v.product_id}][id]" value="{$v.ap_id}">
+                            </div>
+                        </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">折扣类型：</label>
+                                <div class="input-group col-sm-4">
+                                    <div class="radio i-checks">
+                                        <span style="margin: 5px 20px 5px 20px;">
+                                            <input style="margin-top: 2px;" onclick="radio_check({$v.id},0)" type="radio" name='product[{$v.product_id}][status]' value="0" {$v.type==0?'checked':''}/>按箱&nbsp;
+                                        </span>
+                                        &nbsp;<span>
+                                        <input type="radio" style="margin-top: 2px;" onclick="radio_check({$v.id},1)" name='product[{$v.product_id}][status]' value="1" {$v.type==1?'checked':''}/>按台
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        <div class="form-group">
+                        <label class="col-sm-3 control-label">单价：</label>
+                        <div class="input-group col-sm-4">
+                            <input id="title" type="text" class="form-control" name="product[{$v.product_id}][agency_price]" required="" aria-required="true" value="{$v.agency_price}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                        <label class="col-sm-3 control-label">每箱单价：</label>
+                        <div class="input-group col-sm-4">
+                            <input id="title" type="text" class="form-control" name="product[{$v.product_id}][agency_box_price]" required="" aria-required="true" value="{$v.agency_box_price}">
+                            </div>
+                        </div><div class="form-group">
+                        <label class="col-sm-3 control-label box1-{$v.id}">首次代理最低箱数：</label>
+                        <div class="input-group col-sm-4">
+                            <input id="title" type="text" class="form-control" name="product[{$v.product_id}][first_boxful_num]" required="" aria-required="true" value="{$v.first_boxful_num}">
+                            </div>
+                        </div><div class="form-group">
+                        <label class="col-sm-3 control-label box2-{$v.id}">补货最低箱数：</label>
+                        <div class="input-group col-sm-4">
+                            <input id="title" type="text" class="form-control" name="product[{$v.product_id}][again_boxful_num]" required="" aria-required="true" value="{$v.again_boxful_num}">
+                            <button style="margin-top:10px;width:100%" class="btn btn-danger" type="button" onclick="del_ajax(this,{$v.ap_id})">删除</button>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        </div>
+                            {/foreach}
+                        {/if}
+                        <div id="append">
+
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">选择商品：</label>
+                            <div class="input-group col-sm-4">
+                                <select class="form-control" name="product_id" id="ding">
+                                    <option value="0">选择商品</option>
+                                    {foreach $product as $v}
+                                    <option value="{$v.id}">{$v.title}</option>
+                                    {/foreach}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <div class="col-sm-4 col-sm-offset-3">
+                                <button class="btn btn-primary" type="submit"><i class="fa fa-save"></i> 保存</button>&nbsp;&nbsp;&nbsp;
+                                <a class="btn btn-danger" href="javascript:history.go(-1);"><i class="fa fa-close"></i>
+                                    返回</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+</body>
+{include file='layout/footer'}
+<script type="text/javascript" src="__JS__/plugins/webuploader/webuploader.min.js"></script>
+
+<script type="text/javascript">
+    let option = [];
+    let ids = [];
+    // $(document).ready(function () {
+        $("#ding").change(function () {
+            obj = $("option:selected", this)
+            id = $("option:selected", this).val();//需求主键
+            title = $('option:selected', this).text();
+            if (id != 0) {
+                html = '<div><div class="form-group">\n' +
+                    '<label class="col-sm-3 control-label">商品名称：</label>\n' +
+                    '<div class="input-group col-sm-4">\n' +
+                    '<input type="text" class="form-control" disabled value="' + title + '">\n' +
+                    '</div>\n' +
+                    '</div>\n' +
+                    '<div class="form-group">\n' +
+                    '<label class="col-sm-3 control-label">折扣类型：</label>\n' +
+                    '<div class="input-group col-sm-4">\n' +
+                    '<div class="radio i-checks">\n' +
+                    '<span style="margin: 5px 20px 5px 20px;">\n' +
+                    '<input style="margin-top: 2px;" type="radio" onclick="radio_check(\''+id+'\',0)" name="product[' + id + '][status]" value="0" checked/>按箱&nbsp;' +
+                    '</span>\n' +
+                    '&nbsp;<span>\n' +
+                    '<input type="radio" style="margin-top: 2px;" onclick="radio_check(\''+id+'\',1)" name="product[' + id + '][status]" value="1" />按台\n' +
+                    '</span>\n' +
+                    '</div>\n' +
+                    '    </div>\n' +
+                    '</div>'+
+                    '<div class="form-group">\n' +
+                    '<label class="col-sm-3 control-label">单价：</label>\n' +
+                    '<div class="input-group col-sm-4">\n' +
+                    '<input id="title" type="text" class="form-control" name="product[' + id + '][agency_price]" required="" aria-required="true" value="">\n' +
+                    '</div>\n' +
+                    '</div>\n' +
+                    '<div class="form-group">\n' +
+                    '<label class="col-sm-3 control-label">每箱单价：</label>\n' +
+                    '<div class="input-group col-sm-4">\n' +
+                    '<input id="title" type="text" class="form-control" name="product[' + id + '][agency_box_price]" required="" aria-required="true" value="">\n' +
+                    '</div>\n' +
+                    '</div>\n' + '<div class="form-group">\n' +
+                    '<label class="col-sm-3 control-label box1-'+id+'">首次代理最低箱数：</label>\n' +
+                    '<div class="input-group col-sm-4">\n' +
+                    '<input id="title" type="text" class="form-control" name="product[' + id + '][first_boxful_num]" required="" aria-required="true" value="">\n' +
+                    '</div>\n' +
+                    '</div>\n' + '<div class="form-group">\n' +
+                    '<label class="col-sm-3 control-label box2-'+id+'">补货最低箱数：</label>\n' +
+                    '<div class="input-group col-sm-4">\n' +
+                    '<input id="title" type="text" class="form-control" name="product[' + id + '][again_boxful_num]" required="" aria-required="true" value="">\n' +
+                    '<button style="margin-top:10px;width:100%" class="btn btn-danger" type="button" onclick="del(this,\''+title+'\')">删除</button>' +
+                    '</div>\n' +
+                    '</div>\n' +
+                    '<div class="hr-line-dashed"></div></div>'
+                $('#append').append(html);
+                option.push(obj);
+                console.log(option)
+                obj.remove();
+            }
+        });
+
+     function radio_check(id,status){
+         if(status=='0'){
+             console.log(status)
+             $('.box1-'+id).html('首次代理最低箱数：');
+             $('.box2-'+id).html('补货最低箱数：');
+         }else{
+             console.log(id)
+             $('.box1-'+id).html('首次代理最低台数：');
+             $('.box2-'+id).html('补货最低台数：');
+         }
+     }
+
+    function del(_this,title,id) {
+        $(_this).parent().parent().parent().remove();
+        if(title!=''){
+            //TODO:遍历添加option
+            $.each(option,function(i,v){
+                if(v.text()==title){
+                    $('#ding').append(v);
+                }
+            })
+        }
+    }
+
+    function del_ajax(_this,id){
+        $.ajax({
+            type:'GET',
+            url:"{:url('agency/del_agency_product')}",
+            data:{id:id},
+            success:function(res){
+                if(res.code===1){
+                    layer.msg(res.msg, {icon: 6, time: 1500, shade: 0.1}, function (index) {
+                        layer.close(index);
+                    });
+                    html = '<option value="'+res.data.id+'">'+res.data.title+'</option>';
+                    $('#ding').append(html);
+                    $(_this).parent().parent().parent().remove();
+                }
+            },
+            error:function(err){
+                layer.msg('系统错误')
+            }
+        })
+    }
+
+
+    //提交
+    $(function () {
+        $('#userEdit').ajaxForm({
+            beforeSubmit: checkForm,
+            success: complete,
+            dataType: 'json'
+        });
+
+        function checkForm() {
+            if ($('#title').val() === '') {
+                layer.msg('请填写代理名称', {icon: 5, time: 1500, shade: 0.1}, function (index) {
+                    layer.close(index);
+                });
+                return false;
+            }
+        }
+
+
+        function complete(data) {
+            if (data.code === 1) {
+                layer.msg(data.msg, {icon: 6, time: 1500, shade: 0.1}, function (index) {
+                    window.location.href = "{:url('agency/index')}";
+                });
+            } else {
+                layer.msg(data.msg, {icon: 5, time: 1500, shade: 0.1});
+                return false;
+            }
+        }
+
+    });
+</script>
+</html>

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="renderer" content="webkit" />
+		<meta name="force-rendering" content="webkit" />
+		<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+		<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+		<link rel="stylesheet" href="__IN_CSS__/style.css">
+		<link rel="stylesheet" href="http://at.alicdn.com/t/font_1218663_avyf5h8t28e.css">
+		
+		<script src="__IN_JS__/jquery.min.js"></script>
+		<script src="__IN_JS__/vue.min.js"></script>
+		<script src="__IN_JS__/layer/layer.js"></script>
+		<title>我要发货</title>
+		<style>
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			body{
+				background-color: #f0f0f0;
+				min-height: 100vh;
+			}
+			.webbox{
+				padding: 30px 6px 80px;
+				-webkit-box-sizing: border-box;
+				-moz-box-sizing: border-box;
+				box-sizing: border-box;
+			}
+			.mb10{
+				margin-bottom: 10px;
+			}
+			.w100{
+				width: 100%;
+			}
+			.f_box{
+				margin-bottom: 16px;
+			}
+			.f_name{
+				font-size: 14px;
+				color: #141414;
+				font-weight: bold;
+				margin-bottom: 4px;
+			}
+			.ints{
+				width: 100%_;
+				height: 36px;
+				-webkit-box-sizing: border-box;
+				-moz-box-sizing: border-box;
+				box-sizing: border-box;
+				border: 1px solid #c2c2c2;
+				border-top: 3px solid #c2c2c2;
+				border-radius: 6px;
+				background-color: #efefef;
+				padding: 0 14px;
+			}
+			.seles{
+				width: 100%_;
+				height: 36px;
+				-webkit-box-sizing: border-box;
+				-moz-box-sizing: border-box;
+				box-sizing: border-box;
+				border: 1px solid #c2c2c2;
+				border-radius: 6px;
+				background-color: #efefef;
+				padding: 0 14px;
+			}
+			.bgfff{
+				background-color: #fff;
+			}
+			.cz_box{
+				position: fixed;
+				left: 0;
+				bottom: 10px;
+				width: 100%;
+				-webkit-box-sizing: border-box;
+				-moz-box-sizing: border-box;
+				box-sizing: border-box;
+				justify-content: space-between;
+				padding: 0 6px;
+			}
+			.back_btn{
+				width: 55px;
+				height: 34px;
+				background-color: #5ac2dd;
+				color: #fff;
+				font-size: 15px;
+				border-radius: 4px;
+			}
+			.sub_btn{
+				width: 100px;
+				height: 34px;
+				background-color: #60b560;
+				color: #fff;
+				font-size: 15px;
+				border-radius: 4px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="webbox" id="webbox">
+			<div class="w100 f_box">
+				<div class="f_name">选择发货产品</div>
+				<select class="seles" name="goods" id="">
+					<!-- <option value="">请选择发货产品</option> -->
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+				</select>
+				<!-- <input class="ints" type="text"  placeholder="请输入" v-model="danjia"/> -->
+			</div>
+			<div class="w100 f_box">
+				<div class="f_name">剩余库存(箱)</div>
+				<input class="ints" type="text"  placeholder="请输入" v-model="kucun"/>
+			</div>
+			<div class="w100 f_box">
+				<div class="f_name">发货箱数</div>
+				<input class="ints bgfff" type="text"  placeholder="请输入发货箱数" v-model="xiangshu "/>
+			</div>
+			<div class="w100 f_box">
+				<div class="f_name">收货人</div>
+				<input class="ints bgfff" type="text"  placeholder="请输入收货人姓名" v-model="name"/>
+			</div>
+			<div class="w100 f_box">
+				<div class="f_name">联系方式</div>
+				<input class="ints bgfff" type="text"  placeholder="请输入联系方式" v-model="tel"/>
+			</div>
+			<div class="w100 f_box">
+				<div class="f_name">收货地址</div>
+				<input class="ints bgfff" type="text"  placeholder="请输入收货地址" v-model="address"/>
+			</div>
+			<div class="w100 f_box">
+				<div class="f_name">备注信息</div>
+				<input class="ints bgfff" type="text"  placeholder="可不填" v-model="beizhu"/>
+			</div>
+			<div class="cz_box disflex ju_b">
+				<div class="sub_btn disflex ju_c aic" @click="saveadd">提交发货单</div>
+				<a class="back_btn disflex ju_c aic" href="javascript:history.go(-1);">返回</a>
+			</div>
+		</div>
+		<script>
+			var vm=new Vue({
+			  el: '#webbox',
+			  data: {
+					fhcp:0,
+					danjia:1140,
+					kucun:0,
+					xiangshu:'',
+					name:'',
+					tel:'',
+					address:'',
+					beizhu:'',
+				},
+				created: function () {},
+				mounted () {},
+				methods:{}
+			})
+			function saveadd(){
+			  console.log('vm.danjia:'+vm.danjia)
+			  console.log('vm.xiangshu:'+vm.xiangshu)
+			  console.log('vm.heji:'+vm.heji)
+			  console.log('vm.beizhu:'+vm.beizhu)
+			  console.log($("select[name='goods']").val())
+			  var goods=$("select[name='goods']").val()
+				 
+				if(goods==''){
+					layer.msg("请选择发货产品")
+					return
+				}
+			  if(vm.kucun==''){
+			    layer.msg("请输入库存")
+			    return
+			  }
+			  // if(vm.usertel=='' || !(/^1\d{10}$/.test(vm.usertel))){
+			  //     layer.msg("手机号码有误")
+			  //     return
+			  // }
+			  if(vm.xiangshu==""){
+			    layer.msg("请输入发货箱数")
+			    return
+			  }
+			  if(vm.name==''){
+			    layer.msg("请输入收货人姓名")
+			    return
+			  }
+			  if(vm.tel==''){
+			    layer.msg("请输入联系方式")
+			    return
+			  }
+			  if(vm.address==''){
+			    layer.msg("请输入收货地址")
+			    return
+			  }
+				$.ajax({
+					type: "post",
+					url: '',
+					data: {
+						'1':vm.kucun,
+						'2':vm.xiangshu,
+						'3':vm.name,
+						'4':vm.tel,
+						'5':vm.address,
+						'6':vm.beizhu,
+					},
+					success: function(res) {
+						that.paykg == true
+				
+						if(ret.error==0){
+							layer.msg('提交成功')
+						 
+						}else{
+							layer.msg('操作失败')
+						}
+				
+					},
+					error: function(err) {
+						layer.msg('获取失败')
+						console.log(err)
+					}
+				})
+			}
+		</script>
+	</body>
+</html>

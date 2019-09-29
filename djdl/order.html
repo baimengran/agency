@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html class="pixel-ratio-1">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>订单</title>
+		<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+		
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no">
+		<link rel="stylesheet" href="__IN_CSS__/sm.min.css">
+		<link rel="stylesheet" href="__IN_CSS__/sm-extend.min.css">
+		<link rel="stylesheet" href="__IN_CSS__/app.css?349632766">
+		<link rel="stylesheet" href="__IN_CSS__/vantIndex.css">
+		<link rel="stylesheet" href="__IN_CSS__/style.css">
+		<link rel="stylesheet" href="__IN_JS__/layer/mobile/need/layer.css">
+		<!-- <link rel="stylesheet" type="text/css" href="__IN_CSS__/class.css" /> -->
+		<link rel="stylesheet" href="http://at.alicdn.com/t/font_1218663_avyf5h8t28e.css">
+		<script src="__IN_JS__/jquery.min.js"></script>
+		<script src="__IN_JS__/vue.min.js"></script>
+    <script src="__IN_JS__/vant.js"></script>
+    <script src="__IN_JS__/Area.js"></script>
+		<script src="__IN_JS__/layer/layer.js"></script>
+		<style id="__WXWORK_INNER_SCROLLBAR_CSS">
+			::-webkit-scrollbar {
+				width: 12px !important;
+				height: 12px !important;
+			}
+
+			::-webkit-scrollbar-track:vertical {}
+
+			::-webkit-scrollbar-thumb:vertical {
+				background-color: rgba(136, 141, 152, 0.5) !important;
+				border-radius: 10px !important;
+				background-clip: content-box !important;
+				border: 2px solid transparent !important;
+			}
+
+			::-webkit-scrollbar-track:horizontal {}
+
+			::-webkit-scrollbar-thumb:horizontal {
+				background-color: rgba(136, 141, 152, 0.5) !important;
+				border-radius: 10px !important;
+				background-clip: content-box !important;
+				border: 2px solid transparent !important;
+			}
+
+			::-webkit-resizer {
+				display: none !important;
+			}
+			 .gone{
+        width: 100%;
+        /*height: 120px;*/
+        padding: 20px 14px;
+        background-color: #fff;
+        margin-bottom: 12px;
+       /* -ms-align-items: center;
+        align-items: center;*/
+				position: relative;
+      }
+      .gone1{
+        -ms-align-items: center;
+        align-items: center;
+				/* position: relative; */
+      }
+			.o_status{
+				position: absolute;
+				top:10px;
+				right: 10px;
+			}
+      .imgk{
+        width: 80px;
+        height: 80px;
+      }
+      .imgk>img{
+        width: 100%;
+        height: 100%;
+      }
+      .goodsmsg{
+        height: 80px;
+        margin-left: 10px;
+        flex-direction: column;
+        justify-content: center;
+      }
+			.cfe0042{
+				color: #fe0042;
+			}
+			.subbtn{
+			  width: 106px;
+			  height: 50px;
+			  background-color: #fe0042;
+			  color:#fff;
+			  font-size: 14px;
+			  display: flex;
+			  justify-content: center;
+			  align-items: center;
+			}
+			.subbtn1{
+			  background-color: #999;
+			}
+			.iconshanchu{
+			  font-size: 24px;
+			}
+			.caoz{
+			  /*padding: 0 14px;*/
+			  justify-content: flex-end;
+			}
+			.czbtn{
+			  width: 90px;
+			  height: 32px;
+			  border:1px solid #999;
+			  border-radius: 16px;
+			  justify-content: center;
+			  -ms-align-items: center;
+			  align-items: center;
+			}
+			.czbtn1{
+			  border:1px solid #fe0042;
+			  margin-left: 16px;
+			}
+			.wuliu{
+			  margin-top: 10px;
+			  width: 100%;
+			  padding-top: 5px;
+			  border-top: 1px solid #ddd;
+			  -ms-align-items: center;
+			  align-items: center;
+			}
+			.heji{
+				font-size: 14px;
+		</style>
+	</head>
+	<body>
+		<div class="page-group">
+			<div class="page page-current" id="order">
+				<header class="bar bar-nav">
+					<h1 class="title">订单</h1>
+				</header>
+				<div class="bar bar-tab bar-footer">
+					{include file='layout/menu'}
+				</div>
+				<div class="content native-scroll">
+					<div class="buttons-tab"> 
+						<a href="#tab1" class="tab-link active button">已发货</a> 
+						<a href="#tab2" class="tab-link button">待付款</a>
+						<a href="#tab3" class="tab-link button">待发货</a>
+						<a href="#tab4" class="tab-link button">已取消</a> 
+					</div>
+					<div class="tabs">
+						<div class="tab active list-block" id="tab1">
+							<ul>
+								<div class="gone boxsiz" >
+								  <div class="gone1 disflex boxsiz" onclick="jumpxq()">
+										<div class="fz14 o_status">已完成</div>
+								    <div class="imgk">
+								      <img src="images/images/goods_03.jpg" alt="">
+								    </div>
+								    <div class="goodsmsg flex1 disflex">
+								      <div class="fz14 c3 oh1 mb5" >七木健康枕 <span>x1</span></div>
+								      <div class="fz14 c6">
+								       
+								        <span class=" fz14 cfe0042">￥777.00元</span>
+								      </div>
+								
+								    </div>
+								  </div>
+								  <!-- <div class="wuliu disflex">
+								     <div class=" c9 mr20"  v-html="'物流：'"></div>
+								     <div class=" c9" v-html="'物流单号：'"></div>
+								  </div> -->
+									<div class="caoz disflex aic ">
+										<div class="heji">共1件商品 合计：￥1000元</div>
+									</div>
+								  <div class="caoz disflex boxsiz mt10">
+								    <div class="czbtn czbtn1 fz14 cfe0042 disflex" >确认收货</div>
+								  </div>
+								</div>
+								<!-- <li class="disflex ais ">
+									<img class="goods" src="images/images/goods_03.jpg" alt="">
+									<div class="goodmsg flex1 disflex">
+										<div class="goods_name">七木健康枕 </div>
+										<div class="goods_num">x1</div>
+										<div class="goods_pri">￥777.00元 </div>
+									</div>
+									<div class="order_status">已发货</div>
+								</li> -->
+							</ul>
+						</div>
+						<div class="tab list-block" id="tab2">
+							<ul>
+							</ul>
+						</div>
+						<div class="tab list-block" id="tab3">
+							<ul>
+							</ul>
+						</div>
+						<div class="tab list-block" id="tab4">
+							<ul>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- <script src="__IN_JS__/zepto.js"></script> -->
+		<!-- <script src="__IN_JS__/sm.js"></script>
+		<script src="__IN_JS__/sm-extend.js"></script> -->
+		<!-- <script src="__IN_JS__/app.js"></script> -->
+		<script>
+			function jumpxq(){
+				window.location.href="order_xq.html"
+			}
+		</script>
+	</body>
+</html>

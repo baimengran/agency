@@ -1,0 +1,159 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+<head>
+    {include file='layout/header'}
+</head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>普通订单详情</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="form_basic.html#">
+                            <i class="fa fa-wrench"></i>
+                        </a>
+                        <a class="close-link">
+                            <i class="fa fa-times"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="example-wrap">
+                    <div class="example">
+                        <table class="table table-bordered table-hover text-center">
+                            <thead>
+                            <tr class="text-center">
+                                <th >商品名称</th>
+                                <th >单价</th>
+                                <th >数量</th>
+                                <th >图片</th>
+                            </tr>
+                            </thead>
+                            <script id="list-template" type="text/html">
+                        </script>
+                            <tbody id="list-content">
+                            {foreach $product as $k=>$v}
+                            <tr class="long-td">
+                                <td>{$v.title}</td>
+                                <td>{$v.price}</td>
+                                <td>{$v.num}</td>
+                                <td><img width="70px" src="{$v.pic}" /></td>
+                            </tr>
+                            {/foreach}
+                            </tbody>
+                        </table>
+                        <div id="AjaxPage" style="text-align:right;"></div>
+                        <div class="ibox-content">
+                            <form class="form-horizontal" name="userEdit" id="userEdit" method="post"
+                                  action="{:url('update')}">
+                                <input type="hidden" name="id" value="{$order.id}">
+
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">物流：</label>
+                                    <div class="input-group col-sm-4">
+                                        <input id="logistics" type="text" class="form-control"  {$order.logistics!=null?'readonly':null}
+                                               name="logistics"  aria-required="true" value="{$order.logistics}">
+                                    </div>
+                                </div>
+                                <div class="hr-line-dashed"></div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">运单号：</label>
+                                    <div class="input-group col-sm-4">
+                                        <input id="waybill_no" type="text" class="form-control" {$order.waybill_no!=null?'readonly':null}
+                                               name="waybill_no"  aria-required="true" value="{$order.waybill_no}">
+                                    </div>
+                                </div>
+                                <div class="hr-line-dashed"></div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">状&nbsp;态：</label>
+                                    <div class="input-group col-sm-4">
+                                        <div class="radio i-checks">
+                                            <label>
+                                                <input style="margin-top: 2px;" type="radio" id="status"
+                                                       name='status' value="1" {$order.status==1?'checked':'checked'}/>已发货&nbsp;&nbsp;
+                                            </label>
+                                            <label>
+                                                <input style="margin-top: 2px;" type="radio" id="status"
+                                                       name='status' value="2" {$order.status==2?'checked':''}/>取消发货
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="hr-line-dashed"></div>
+                                <div class="form-group">
+                                    <div class="col-sm-4 col-sm-offset-3">
+                                        <button class="btn btn-primary" type="submit"><i class="fa fa-save"></i> 保存</button>&nbsp;&nbsp;&nbsp;
+                                        <a class="btn btn-danger" href="javascript:history.go(-1);"><i class="fa fa-close"></i>
+                                            返回</a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+</body>
+{include file='layout/footer'}
+<script type="text/javascript">
+    function status(id,status,cate){
+        layer.open({
+            icon:3,
+            title:'提示',
+            content:'请仔细核对后点击下方按钮',
+            btn:['发货','取消发货'],
+            yes:function(index){
+                lunhui.taxi_status(id,status,1,'{:url("status")}');
+            },
+            btn2:function(index){
+                lunhui.taxi_status(id,status,2,'{:url("status")}');
+            }
+        });
+    }
+    $(function(){
+        $('#userEdit').ajaxForm({
+            beforeSubmit: checkForm,
+            success: complete,
+            dataType: 'json'
+        });
+
+        function checkForm(){
+            if($('input:radio:checked').val()==1){
+                if($('#logistics').val()==''){
+                    layer.msg('请填写物流',{icon:5,time:1500,shade:0.1},function(index){
+                        layer.close(index);
+                    })
+                    return false;
+                }
+                if($('#waybill_no').val()==''){
+                    layer.msg('请填写运单号',{icon:5,time:1500,shade:0.1},function(index){
+                        layer.close(index);
+                    })
+                    return false;
+                }
+            }
+        }
+
+
+        function complete(data){
+            if(data.code==1){
+                layer.msg(data.msg, {icon: 6,time:1500,shade: 0.1}, function(index){
+                    window.location.href="{:url('user_order/index')}";
+                });
+            }else{
+                layer.msg(data.msg, {icon: 5,time:1500,shade: 0.1});
+                return false;
+            }
+        }
+
+    });
+</script>
+</html>

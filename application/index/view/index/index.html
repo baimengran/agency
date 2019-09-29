@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html class="pixel-ratio-1">
+<head>
+    <title>首页</title>
+    {include file='layout/header'}
+    <style id="__WXWORK_INNER_SCROLLBAR_CSS">
+        ::-webkit-scrollbar {
+            width: 12px !important;
+            height: 12px !important;
+        }
+
+        ::-webkit-scrollbar-track:vertical {
+        }
+
+        ::-webkit-scrollbar-thumb:vertical {
+            background-color: rgba(136, 141, 152, 0.5) !important;
+            border-radius: 10px !important;
+            background-clip: content-box !important;
+            border: 2px solid transparent !important;
+        }
+
+        ::-webkit-scrollbar-track:horizontal {
+        }
+
+        ::-webkit-scrollbar-thumb:horizontal {
+            background-color: rgba(136, 141, 152, 0.5) !important;
+            border-radius: 10px !important;
+            background-clip: content-box !important;
+            border: 2px solid transparent !important;
+        }
+
+        ::-webkit-resizer {
+            display: none !important;
+        }
+
+        .addcar {
+            font-style: normal !important;
+            width: 92px;
+            height: 28px;
+            background-color: #4bdb57;
+            border-radius: 2px;
+            color: #fff;
+            margin-left: 8px;
+
+        }
+    </style>
+</head>
+<body>
+<div class="page-group">
+    <div class="page page-current" id="home">
+        <header class="bar bar-nav">
+            <h1 class="title">{$site.title}</h1>
+        </header>
+        <div class="bar bar-tab bar-footer">
+            {include file='layout/menu'}
+        </div>
+        <div class="content native-scroll">
+            <div class="content-inner">
+                <div id="hotlist">
+                    {foreach $data as $v}
+                    <div class="card">
+                        <div class="card-content">
+                            <div class="card-content-inner"><img src="{$v.pic}"></div>
+                        </div>
+                        <div class="card-footer">{$v.title}
+                            <span class="disflex aic ">
+										<i class="price disflex aic">￥{$v.price}元</i>
+                                        {if $site.status==1}
+										<i class="addcar aic disflex  ju_c" onclick="addcar({$v.id})">加入购物车</i>
+                                        {/if}
+									</span>
+                        </div>
+                    </div>
+                    {/foreach}
+                </div>
+                <div class="card">
+                    <div class="card-content">
+                        <div class="list-block media-list">
+                            <ul id="productlist"></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{include file='layout/footer'}
+
+<script>
+
+    function addcar(id) {
+        layer.open({
+            title: '加入购物车',
+            content: '是否加入购物车',
+            icon: 3,
+            btn: ['确认', '取消'],
+            yes: function (index) {
+            $.ajax({
+                    type: "post",
+                    url: "{:url('cart/save')}",
+                    data: {id:id},
+                    success: function(res) {
+                        if(res.code===1){
+                            layer.msg(res.msg);
+
+                        }else{
+                            layer.msg(res.msg);
+                        }
+                    },
+                    error: function(err) {
+                        layer.msg('提交失败')
+                    }
+                })
+            },
+            btn2: function (index) {
+
+            }
+        })
+    }
+
+</script>
+<!-- <script src="images/js/app.js?1988290038"></script> -->
+
+</body>
+</html>
